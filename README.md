@@ -32,9 +32,9 @@ This project is a recreation of most of the services the Localized version of th
 
 ## How To Use (non-dockerized)
 
-This program depends on [Deno](https://deno.com/) and [npm](https://www.npmjs.com/) to run. You'll need both `deno` and `npm` installed on your machine.
+This program depends on [Deno](https://deno.com/) to run.
 
-Assuming you already have both installed, you can set up the program like so:
+Assuming you already have it installed, you can set up the program like so:
 
 ```bash
 # Clone the repository
