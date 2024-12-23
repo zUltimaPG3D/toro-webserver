@@ -1,0 +1,6 @@
+IGNORETHIS_markdown_stuff
+node_modules
+protobuf/*.proto
+protobuf/compile.sh
+player_data/*.json
+.idea

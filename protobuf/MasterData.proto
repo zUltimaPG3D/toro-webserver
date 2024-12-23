@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "Common.proto";
+
+message MasterDataRequest {
+  CommonRequest head = 1;
+}
+
+message MasterDataResponse {
+  CommonResponse head = 1;
+  repeated MasterData data = 2;
+}
+
+message MasterData {
+  string name = 1;
+  string hash = 2;
+  string url = 3;
+  int64 size = 4;
+}

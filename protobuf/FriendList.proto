@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+import "Common.proto";
+import "google/protobuf/timestamp.proto";
+
+message FriendListRequest {
+  CommonRequest head = 1;
+  FriendStatus status = 2;
+}
+
+message FriendListResponse {
+  CommonResponse head = 1;
+  repeated SupportAccount data = 2;
+}
+
+message FriendSearchRequest {
+  CommonRequest head = 1;
+  string publicId = 2;
+}
+
+message FriendSearchResponse {
+  CommonResponse head = 1;
+  repeated SupportAccount data = 2;
+}
+
+message SupportAccount {
+  optional int32 userId = 1;
+  string publicId = 2;
+  string playerName = 3;
+  string playerData = 4;
+  optional google.protobuf.Timestamp updateTime = 5;
+  FriendStatus status = 6;
+}
+
+enum FriendStatus {
+  FRIEND_STATUS_NONE = 0;
+  FRIEND_STATUS_FRIEND = 1;
+  FRIEND_STATUS_SEND_REQUEST = 2;
+  FRIEND_STATUS_RECV_REQUEST = 3;
+  FRIEND_STATUS_BLOCKED = 4;
+  FRIEND_STATUS_OWN = 5;
+}

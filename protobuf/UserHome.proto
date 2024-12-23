@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "Common.proto";
+
+message UserHomeRequest {
+  CommonRequest head = 1;
+  bool sendHeart = 2;
+}
+
+message UserHomeResponse {
+  CommonResponse head = 1;
+  int32 loginbonusNum = 2;
+  int32 presentboxNum = 3;
+  repeated PresentData loginbonusList = 4;
+  repeated string friendWordList = 5;
+  optional google.protobuf.Timestamp heartSendTime = 6;
+  optional google.protobuf.Timestamp friendRecvRequestTime = 7;
+  optional google.protobuf.Timestamp friendAddTime = 8;
+  repeated Offer offerList = 9;
+  optional google.protobuf.Timestamp latestNewsTime = 10;
+}
+
+message PresentData {
+  int32 presentId = 1;
+  PresentType presentType = 2;
+  google.protobuf.Timestamp createTime = 3;
+  google.protobuf.Timestamp expireTime = 4;
+  ItemData itemdata = 5;
+  string title = 6;
+  string description = 7;
+}
+
+message Offer {
+  string id = 1;
+  string purchaseId = 2;
+  string title = 3;
+  google.protobuf.Timestamp startTime = 4;
+  google.protobuf.Timestamp endTime = 5;
+  string button = 6;
+  string image = 7;
+  string ornaments = 8;
+}
+
+enum PresentType {
+  PRESENT_TYPE_PRESENT = 0;
+  PRESENT_TYPE_PRESENT_OPENED = 1;
+  PRESENT_TYPE_LOGIN_BONUS = 2;
+  PRESENT_TYPE_LOGIN_BONUS_OPENED = 3;
+}

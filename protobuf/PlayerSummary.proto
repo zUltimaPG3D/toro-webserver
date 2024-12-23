@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message PlayerSummary {
+    int32 puzzleLevel = 1;
+    int32 coinCount = 2;
+}

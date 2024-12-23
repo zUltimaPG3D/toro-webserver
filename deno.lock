@@ -1,0 +1,83 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@std/assert@1": "1.0.10",
+    "jsr:@std/internal@^1.0.5": "1.0.5",
+    "npm:@bufbuild/protobuf@^2.2.3": "2.2.3",
+    "npm:ts-proto@^2.6.0": "2.6.0"
+  },
+  "jsr": {
+    "@std/assert@1.0.10": {
+      "integrity": "59b5cbac5bd55459a19045d95cc7c2ff787b4f8527c0dd195078ff6f9481fbb3",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/internal@1.0.5": {
+      "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
+    }
+  },
+  "npm": {
+    "@bufbuild/protobuf@2.2.3": {
+      "integrity": "sha512-tFQoXHJdkEOSwj5tRIZSPNUuXK3RaR7T1nUrPgbYX1pUbvqqaaZAsfo+NXBPsz5rZMSKVFrgK1WL8Q/MSLvprg=="
+    },
+    "case-anything@2.1.13": {
+      "integrity": "sha512-zlOQ80VrQ2Ue+ymH5OuM/DlDq64mEm+B9UTdHULv5osUMD6HalNTblf2b1u/m6QecjsnOkBpqVZ+XPwIVsy7Ng=="
+    },
+    "detect-libc@1.0.3": {
+      "integrity": "sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg=="
+    },
+    "dprint-node@1.0.8": {
+      "integrity": "sha512-iVKnUtYfGrYcW1ZAlfR/F59cUVL8QIhWoBJoSjkkdua/dkWIgjZfiLMeTjiB06X0ZLkQ0M2C1VbUj/CxkIf1zg==",
+      "dependencies": [
+        "detect-libc"
+      ]
+    },
+    "ts-poet@6.9.0": {
+      "integrity": "sha512-roe6W6MeZmCjRmppyfOURklO5tQFQ6Sg7swURKkwYJvV7dbGCrK28um5+51iW3twdPRKtwarqFAVMU6G1mvnuQ==",
+      "dependencies": [
+        "dprint-node"
+      ]
+    },
+    "ts-proto-descriptors@2.0.0": {
+      "integrity": "sha512-wHcTH3xIv11jxgkX5OyCSFfw27agpInAd6yh89hKG6zqIXnjW9SYqSER2CVQxdPj4czeOhGagNvZBEbJPy7qkw==",
+      "dependencies": [
+        "@bufbuild/protobuf"
+      ]
+    },
+    "ts-proto@2.6.0": {
+      "integrity": "sha512-vMpXqanLw2Y0Mp3NcjV5kM7JSTiKHksJyy7/LCuZmUt7iZ3NBz6Up6b9uQn8cC1RzzMyAk+fBIT7qzoLGgl5kw==",
+      "dependencies": [
+        "@bufbuild/protobuf",
+        "case-anything",
+        "ts-poet",
+        "ts-proto-descriptors"
+      ]
+    }
+  },
+  "redirects": {
+    "https://deno.land/x/sqlite/mod.ts": "https://deno.land/x/sqlite@v3.9.1/mod.ts"
+  },
+  "remote": {
+    "https://deno.land/x/sqlite@v3.9.1/build/sqlite.js": "2afc7875c7b9c85d89730c4a311ab3a304e5d1bf761fbadd8c07bbdf130f5f9b",
+    "https://deno.land/x/sqlite@v3.9.1/build/vfs.js": "7f7778a9fe499cd10738d6e43867340b50b67d3e39142b0065acd51a84cd2e03",
+    "https://deno.land/x/sqlite@v3.9.1/mod.ts": "e09fc79d8065fe222578114b109b1fd60077bff1bb75448532077f784f4d6a83",
+    "https://deno.land/x/sqlite@v3.9.1/src/constants.ts": "90f3be047ec0a89bcb5d6fc30db121685fc82cb00b1c476124ff47a4b0472aa9",
+    "https://deno.land/x/sqlite@v3.9.1/src/db.ts": "03d0c860957496eadedd86e51a6e650670764630e64f56df0092e86c90752401",
+    "https://deno.land/x/sqlite@v3.9.1/src/error.ts": "f7a15cb00d7c3797da1aefee3cf86d23e0ae92e73f0ba3165496c3816ab9503a",
+    "https://deno.land/x/sqlite@v3.9.1/src/function.ts": "bc778cab7a6d771f690afa27264c524d22fcb96f1bb61959ade7922c15a4ab8d",
+    "https://deno.land/x/sqlite@v3.9.1/src/query.ts": "d58abda928f6582d77bad685ecf551b1be8a15e8e38403e293ec38522e030cad",
+    "https://deno.land/x/sqlite@v3.9.1/src/wasm.ts": "e79d0baa6e42423257fb3c7cc98091c54399254867e0f34a09b5bdef37bd9487"
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/assert@1",
+      "npm:@bufbuild/protobuf@^2.2.3"
+    ],
+    "packageJson": {
+      "dependencies": [
+        "npm:ts-proto@^2.6.0"
+      ]
+    }
+  }
+}

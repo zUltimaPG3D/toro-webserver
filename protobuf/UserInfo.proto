@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "Common.proto";
+
+message UserInfoRequest {
+  CommonRequest head = 1;
+  repeated string keyList = 2;
+}
+
+message UserInfoResponse {
+  CommonResponse head = 1;
+  repeated UserProperty propertyList = 2;
+}
+
+message UserUpdateRequest {
+  CommonRequest head = 1;
+  repeated UserProperty propertyList = 2;
+}
+
+message UserProperty {
+  string key = 1;
+  string value = 2;
+}
