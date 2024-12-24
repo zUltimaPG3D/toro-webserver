@@ -1,7 +1,7 @@
 import readTextFile = Deno.readTextFile;
 
 interface Config {
-    schema: string;
+    scheme: string;
     ip: string;
     port: number;
     game_status: string;
