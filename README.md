@@ -11,6 +11,7 @@
 <p align="center">
   <a href="#overview">Overview</a> •
   How To Use (<a href="#how-to-use-non-dockerized">non-dockerized</a> or <a href="#how-to-use-dockerized">dockerized</a>) •
+  <a href="#setup">Setup</a> •
   <a href="#credits">Credits</a> •
   <a href="#others-like-this">Others like this</a> •
   <a href="#license">License</a>
@@ -46,6 +47,9 @@ $ cd toro-webserver
 # Install dependencies
 $ deno install
 
+# Follow the instructions in the "Setup" section
+# before you run the server
+
 # If the user doesn't have write permissions
 # $ sudo chown -R deno:deno ./player_data
 
@@ -66,6 +70,9 @@ $ git clone https://github.com/zUltimaPG3D/toro-webserver
 # Go into the repository
 $ cd toro-webserver
 
+# Follow the instructions in the "Setup" section
+# before you build the image
+
 # Build the image
 $ docker build . -t toro-webserver
 
@@ -75,6 +82,16 @@ $ docker run -p 15151:15151 toro-webserver
 
 > * **Note**:
 > It is recommended to use volumes to make the `./player_data` directory persistent, so that data is not lost with the container.
+
+## Setup
+
+Before running the server, you will have to edit the `config.json` file to match the port and IP address (and the scheme, if you want to use HTTPS) of your server.
+
+If you're hosting the server and link to it via a domain, you can either change `ip` to the server's IP address, or you can change it to the domain. Both will work, as long as doing `scheme://ip:port/` works.
+
+If you're using a domain where the server runs without a separate port (for example `http://some-domain.com/` directly) and you have something using port `80` or `443`, you cannot use the domain as `ip` because `port` would have to be `80` or `443`, which wouldn't work as two different programs can't use the same port at the same time. You instead have to use the server's IP address and the port of the server has to be different (`15151` should be fine).
+
+If the server is running through a domain like `http://some-domain.com/server/`, you cannot use the domain for `ip`.
 
 ## Credits
 
