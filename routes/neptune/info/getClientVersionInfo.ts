@@ -2,7 +2,7 @@ import {config} from "../../../config.ts";
 
 const tos_url = config.ip + ":" + config.port + "/tos";
 
-const addr = config.schema + "://" + config.ip + ":" + config.port + "/";
+const addr = config.scheme + "://" + config.ip + ":" + config.port + "/";
 
 const clientVersionInfoJson = {
     "isSuccess": true,

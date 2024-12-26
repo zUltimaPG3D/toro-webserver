@@ -1,7 +1,7 @@
 import {config} from "../config.ts";
 
 export async function getAllMstPackages() {
-  const baseAddr = config.schema + "://" + config.ip + ":" + config.port;
+  const baseAddr = config.scheme + "://" + config.ip + ":" + config.port;
   return [
     {
       "name": "MstNewsList",
