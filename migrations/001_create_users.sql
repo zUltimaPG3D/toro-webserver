@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS users (
+    userId TEXT PRIMARY KEY NOT NULL,
+    nid TEXT NOT NULL DEFAULT '1',
+    gnid TEXT NOT NULL DEFAULT '1',
+    pfSessionToken TEXT NOT NULL DEFAULT 'tokenHere',
+    agreedToPush BOOLEAN NOT NULL DEFAULT false,
+    agreedToTerms BOOLEAN NOT NULL DEFAULT false,
+    pushAgreeTime INTEGER NOT NULL DEFAULT 0,
+    termsAgreeTime INTEGER NOT NULL DEFAULT 0,
+    isNew BOOLEAN NOT NULL DEFAULT true,
+    coin INTEGER NOT NULL DEFAULT 0,
+    propertyList TEXT NOT NULL DEFAULT '[]'
+);

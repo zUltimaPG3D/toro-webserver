@@ -6,6 +6,7 @@ import {handler as homeRoute} from "./bexide/user/home.ts";
 import {handler as friendListRoute} from "./bexide/friend/list.ts";
 import {handler as friendSearchRoute} from "./bexide/friend/search.ts";
 import {handler as purchaseListRoute} from "./bexide/purchase/list.ts";
+import {handler as presentListRoute} from "./bexide/present/list.ts";
 
 export const router = async (path:string, req:Request) => {
     switch (path) {
@@ -25,6 +26,8 @@ export const router = async (path:string, req:Request) => {
             return await friendSearchRoute(req);
         case "/api/purchase/list":
             return await purchaseListRoute(req);
+        case "/api/present/list":
+            return await presentListRoute(req);
     }
     return null;
 }

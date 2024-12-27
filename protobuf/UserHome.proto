@@ -21,16 +21,6 @@ message UserHomeResponse {
   optional google.protobuf.Timestamp latestNewsTime = 10;
 }
 
-message PresentData {
-  int32 presentId = 1;
-  PresentType presentType = 2;
-  google.protobuf.Timestamp createTime = 3;
-  google.protobuf.Timestamp expireTime = 4;
-  ItemData itemdata = 5;
-  string title = 6;
-  string description = 7;
-}
-
 message Offer {
   string id = 1;
   string purchaseId = 2;
@@ -42,9 +32,3 @@ message Offer {
   string ornaments = 8;
 }
 
-enum PresentType {
-  PRESENT_TYPE_PRESENT = 0;
-  PRESENT_TYPE_PRESENT_OPENED = 1;
-  PRESENT_TYPE_LOGIN_BONUS = 2;
-  PRESENT_TYPE_LOGIN_BONUS_OPENED = 3;
-}

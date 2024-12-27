@@ -1,25 +1,35 @@
-import {basicPlayerInfo} from "../../../playerData.ts";
+import {getPlayerFromSessionToken} from "../../../db.ts";
 
 export const handler = async (req: Request): Promise<Response> => {
-    basicPlayerInfo.agreedToPush = true;
-    basicPlayerInfo.pushAgreeTime = Date.now();
+    const text = await req.text();
+    const allData = new URLSearchParams(text);
+    const pfSessionToken = allData.get("pfSessionToken") ?? "";
 
-    await basicPlayerInfo.commit();
-
-    let passedToken:string;
-    if (req.body == null) {
-        passedToken = "pushToken:here";
-    } else {
-        const allData = new URLSearchParams(await req.text());
-        const tokenEntry = allData.get("pushToken");
-        if (typeof tokenEntry === "string") {
-            passedToken = tokenEntry;
-        } else {
-            passedToken = "pushToken:here";
-        }
+    if (pfSessionToken == "") {
+        return new Response(JSON.stringify({"success": false, "isSuccess": false}), {
+            status: 200,
+            headers: {
+                "content-type": "application/json; charset=utf-8",
+            },
+        });
     }
 
-    console.log(passedToken);
+    const user = getPlayerFromSessionToken(pfSessionToken);
+    if (user == null) {
+        return new Response(JSON.stringify({"success": false, "isSuccess": false}), {
+            status: 200,
+            headers: {
+                "content-type": "application/json; charset=utf-8",
+            },
+        });
+    }
+
+    user.agreedToPush = true;
+    user.pushAgreeTime = Date.now();
+
+    user.commit();
+
+    const passedToken = allData.get("pushToken") ?? "pushToken:here";
 
     return new Response(JSON.stringify({
         "isSuccess": true,

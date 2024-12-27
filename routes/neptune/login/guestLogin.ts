@@ -1,26 +1,41 @@
-import {basicPlayerInfo} from "../../../playerData.ts";
 import {sha1} from "../../../hashes.ts";
+import {getPlayer, User} from "../../../db.ts";
 
 export const handler = async (req: Request): Promise<Response> => {
-    const gnidHash:string = await sha1(basicPlayerInfo.gnid);
+    const text = await req.text();
+    const allData = new URLSearchParams(text);
+    const platformUserId = allData.get("platformUserId") ?? "";
+
+    if (platformUserId == "") {
+        return new Response(JSON.stringify({"isSuccess": false, "msg": "Invalid platformUserId"}), {
+            status: 200,
+            headers: {
+                "content-type": "application/json; charset=utf-8",
+            },
+        });
+    }
+
+    const user:User = getPlayer(platformUserId);
+
+    const gnidHash:string = await sha1(user.gnid);
     const loginTokenJson = {
         "success": true,
         "data": {
-            "newGnidYn": (basicPlayerInfo.isNew ? "Y" : "N"),
+            "newGnidYn": (user.isNew ? "Y" : "N"),
             "gnidHash": gnidHash,
-            "pfSessionToken": basicPlayerInfo.pfSessionToken,
+            "pfSessionToken": user.pfSessionToken,
             "countryCreated": "US",
             "policyAgreeInfo": {
-                "termsAgreeUnixTS": basicPlayerInfo.termsAgreeTime,
-                "privacyAgreeUnixTS": basicPlayerInfo.termsAgreeTime,
-                "ageCheckCompletedUnixTS": basicPlayerInfo.termsAgreeTime,
-                "privacyTransferAgreeUnixTS": basicPlayerInfo.termsAgreeTime,
-                "nightPushAgreeYn": (basicPlayerInfo.agreedToPush ? "Y" : "N"),
-                "nightPushAgreeUnixTS": basicPlayerInfo.pushAgreeTime,
-                "pushAgreeYn": (basicPlayerInfo.agreedToPush ? "Y" : "N"),
-                "pushAgreeUnixTS": basicPlayerInfo.pushAgreeTime,
-                "needAgreePushYn": (basicPlayerInfo.agreedToPush ? "N" : "Y"),
-                "needReAgreePolicyYn": (basicPlayerInfo.agreedToTerms ? "N" : "Y")
+                "termsAgreeUnixTS": user.termsAgreeTime,
+                "privacyAgreeUnixTS": user.termsAgreeTime,
+                "ageCheckCompletedUnixTS": user.termsAgreeTime,
+                "privacyTransferAgreeUnixTS": user.termsAgreeTime,
+                "nightPushAgreeYn": (user.agreedToPush ? "Y" : "N"),
+                "nightPushAgreeUnixTS": user.pushAgreeTime,
+                "pushAgreeYn": (user.agreedToPush ? "Y" : "N"),
+                "pushAgreeUnixTS": user.pushAgreeTime,
+                "needAgreePushYn": (user.agreedToPush ? "N" : "Y"),
+                "needReAgreePolicyYn": (user.agreedToTerms ? "N" : "Y")
             },
             "linkedPlatformIdList": [
                 99
@@ -28,8 +43,8 @@ export const handler = async (req: Request): Promise<Response> => {
         }
     }
 
-    basicPlayerInfo.isNew = false;
-    await basicPlayerInfo.commit();
+    user.isNew = false;
+    user.commit();
 
     return new Response(JSON.stringify(loginTokenJson), {
         status: 200,

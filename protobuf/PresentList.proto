@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "Common.proto";
+
+message PresentListRequest {
+  CommonRequest head = 1;
+  PresentType type = 2;
+  int32 page = 3;
+}
+
+message PresentListResponse {
+  CommonResponse head = 1;
+  repeated PresentData presentList = 2;
+}

@@ -6,6 +6,7 @@ interface Config {
     port: number;
     game_status: string;
     maintenance_message: string;
+    debug: boolean;
 }
 
 export async function loadConfig(): Promise<Config> {

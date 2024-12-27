@@ -22,6 +22,16 @@ message ItemData {
     int32 num = 3;
 }
 
+message PresentData {
+    int32 presentId = 1;
+    PresentType presentType = 2;
+    google.protobuf.Timestamp createTime = 3;
+    google.protobuf.Timestamp expireTime = 4;
+    ItemData itemdata = 5;
+    string title = 6;
+    string description = 7;
+}
+
 enum Platform {
     PLATFORM_EDITOR = 0;
     PLATFORM_APPLE = 1;
@@ -40,4 +50,11 @@ enum Age {
     AGE_UNDER_16 = 1;
     AGE_UNDER_20 = 2;
     AGE_NO_LIMIT = 3;
+}
+
+enum PresentType {
+    PRESENT_TYPE_PRESENT = 0;
+    PRESENT_TYPE_PRESENT_OPENED = 1;
+    PRESENT_TYPE_LOGIN_BONUS = 2;
+    PRESENT_TYPE_LOGIN_BONUS_OPENED = 3;
 }

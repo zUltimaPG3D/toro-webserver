@@ -28,9 +28,6 @@ The Localized version of the game died just like the Japanese version, but unlik
 
 This project is a recreation of most of the services the Localized version of the game uses, which makes the game finally work again, as long as certain modifications are made to the game itself (such as using [town-restoration](https://github.com/zUltimaPG3D/town-restoration/)).
 
-> * **Note**:
-> Due to it not being meant for public hosting, the server currently saves all the user data in multiple `.json` files in the `./player_data` directory, and doesn't separate every file if there are more than one player.
-
 ## How To Use (non-dockerized)
 
 This program depends on [Deno](https://deno.com/) to run.

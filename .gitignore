@@ -1,3 +1,3 @@
-player_data/*.json
+player_data/db.sqlite
 node_modules/
 .idea/

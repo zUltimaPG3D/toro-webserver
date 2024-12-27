@@ -6,55 +6,10 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { CommonRequest, CommonResponse, ItemData } from "./Common.ts";
+import { CommonRequest, CommonResponse, PresentData } from "./Common.ts";
 import { Timestamp } from "./google/protobuf/timestamp.ts";
 
 export const protobufPackage = "";
-
-export enum PresentType {
-  PRESENT_TYPE_PRESENT = 0,
-  PRESENT_TYPE_PRESENT_OPENED = 1,
-  PRESENT_TYPE_LOGIN_BONUS = 2,
-  PRESENT_TYPE_LOGIN_BONUS_OPENED = 3,
-  UNRECOGNIZED = -1,
-}
-
-export function presentTypeFromJSON(object: any): PresentType {
-  switch (object) {
-    case 0:
-    case "PRESENT_TYPE_PRESENT":
-      return PresentType.PRESENT_TYPE_PRESENT;
-    case 1:
-    case "PRESENT_TYPE_PRESENT_OPENED":
-      return PresentType.PRESENT_TYPE_PRESENT_OPENED;
-    case 2:
-    case "PRESENT_TYPE_LOGIN_BONUS":
-      return PresentType.PRESENT_TYPE_LOGIN_BONUS;
-    case 3:
-    case "PRESENT_TYPE_LOGIN_BONUS_OPENED":
-      return PresentType.PRESENT_TYPE_LOGIN_BONUS_OPENED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return PresentType.UNRECOGNIZED;
-  }
-}
-
-export function presentTypeToJSON(object: PresentType): string {
-  switch (object) {
-    case PresentType.PRESENT_TYPE_PRESENT:
-      return "PRESENT_TYPE_PRESENT";
-    case PresentType.PRESENT_TYPE_PRESENT_OPENED:
-      return "PRESENT_TYPE_PRESENT_OPENED";
-    case PresentType.PRESENT_TYPE_LOGIN_BONUS:
-      return "PRESENT_TYPE_LOGIN_BONUS";
-    case PresentType.PRESENT_TYPE_LOGIN_BONUS_OPENED:
-      return "PRESENT_TYPE_LOGIN_BONUS_OPENED";
-    case PresentType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
-  }
-}
 
 export interface UserHomeRequest {
   head: CommonRequest | undefined;
@@ -72,16 +27,6 @@ export interface UserHomeResponse {
   friendAddTime?: Date | undefined;
   offerList: Offer[];
   latestNewsTime?: Date | undefined;
-}
-
-export interface PresentData {
-  presentId: number;
-  presentType: PresentType;
-  createTime: Date | undefined;
-  expireTime: Date | undefined;
-  itemdata: ItemData | undefined;
-  title: string;
-  description: string;
 }
 
 export interface Offer {
@@ -392,172 +337,6 @@ export const UserHomeResponse: MessageFns<UserHomeResponse> = {
     message.friendAddTime = object.friendAddTime ?? undefined;
     message.offerList = object.offerList?.map((e) => Offer.fromPartial(e)) || [];
     message.latestNewsTime = object.latestNewsTime ?? undefined;
-    return message;
-  },
-};
-
-function createBasePresentData(): PresentData {
-  return {
-    presentId: 0,
-    presentType: 0,
-    createTime: undefined,
-    expireTime: undefined,
-    itemdata: undefined,
-    title: "",
-    description: "",
-  };
-}
-
-export const PresentData: MessageFns<PresentData> = {
-  encode(message: PresentData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.presentId !== 0) {
-      writer.uint32(8).int32(message.presentId);
-    }
-    if (message.presentType !== 0) {
-      writer.uint32(16).int32(message.presentType);
-    }
-    if (message.createTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.createTime), writer.uint32(26).fork()).join();
-    }
-    if (message.expireTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.expireTime), writer.uint32(34).fork()).join();
-    }
-    if (message.itemdata !== undefined) {
-      ItemData.encode(message.itemdata, writer.uint32(42).fork()).join();
-    }
-    if (message.title !== "") {
-      writer.uint32(50).string(message.title);
-    }
-    if (message.description !== "") {
-      writer.uint32(58).string(message.description);
-    }
-    return writer;
-  },
-
-  decode(input: BinaryReader | Uint8Array, length?: number): PresentData {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePresentData();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1: {
-          if (tag !== 8) {
-            break;
-          }
-
-          message.presentId = reader.int32();
-          continue;
-        }
-        case 2: {
-          if (tag !== 16) {
-            break;
-          }
-
-          message.presentType = reader.int32() as any;
-          continue;
-        }
-        case 3: {
-          if (tag !== 26) {
-            break;
-          }
-
-          message.createTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          continue;
-        }
-        case 4: {
-          if (tag !== 34) {
-            break;
-          }
-
-          message.expireTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          continue;
-        }
-        case 5: {
-          if (tag !== 42) {
-            break;
-          }
-
-          message.itemdata = ItemData.decode(reader, reader.uint32());
-          continue;
-        }
-        case 6: {
-          if (tag !== 50) {
-            break;
-          }
-
-          message.title = reader.string();
-          continue;
-        }
-        case 7: {
-          if (tag !== 58) {
-            break;
-          }
-
-          message.description = reader.string();
-          continue;
-        }
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skip(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): PresentData {
-    return {
-      presentId: isSet(object.presentId) ? globalThis.Number(object.presentId) : 0,
-      presentType: isSet(object.presentType) ? presentTypeFromJSON(object.presentType) : 0,
-      createTime: isSet(object.createTime) ? fromJsonTimestamp(object.createTime) : undefined,
-      expireTime: isSet(object.expireTime) ? fromJsonTimestamp(object.expireTime) : undefined,
-      itemdata: isSet(object.itemdata) ? ItemData.fromJSON(object.itemdata) : undefined,
-      title: isSet(object.title) ? globalThis.String(object.title) : "",
-      description: isSet(object.description) ? globalThis.String(object.description) : "",
-    };
-  },
-
-  toJSON(message: PresentData): unknown {
-    const obj: any = {};
-    if (message.presentId !== 0) {
-      obj.presentId = Math.round(message.presentId);
-    }
-    if (message.presentType !== 0) {
-      obj.presentType = presentTypeToJSON(message.presentType);
-    }
-    if (message.createTime !== undefined) {
-      obj.createTime = message.createTime.toISOString();
-    }
-    if (message.expireTime !== undefined) {
-      obj.expireTime = message.expireTime.toISOString();
-    }
-    if (message.itemdata !== undefined) {
-      obj.itemdata = ItemData.toJSON(message.itemdata);
-    }
-    if (message.title !== "") {
-      obj.title = message.title;
-    }
-    if (message.description !== "") {
-      obj.description = message.description;
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<PresentData>, I>>(base?: I): PresentData {
-    return PresentData.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<PresentData>, I>>(object: I): PresentData {
-    const message = createBasePresentData();
-    message.presentId = object.presentId ?? 0;
-    message.presentType = object.presentType ?? 0;
-    message.createTime = object.createTime ?? undefined;
-    message.expireTime = object.expireTime ?? undefined;
-    message.itemdata = (object.itemdata !== undefined && object.itemdata !== null)
-      ? ItemData.fromPartial(object.itemdata)
-      : undefined;
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
     return message;
   },
 };
